@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2026 at 12:10 PM
+-- Generation Time: Mar 27, 2026 at 09:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -73,15 +73,17 @@ INSERT INTO `classes` (`current_students`, `is_active`, `max_students`, `departm
 (0, b'1', 25, 1, 1, '2025-2026', '1 Gestion', '1 Gestion 1', NULL),
 (0, b'1', 25, 1, 2, '2025-2026', '1 Gestion ', '1 Gestion 2', NULL),
 (0, b'1', 25, 2, 4, '2025-2026', '1 info', '1 info 1', NULL),
-(0, b'1', 25, 3, 5, '2025-2026', '4 Arctic', '4 Arctic 3', NULL),
+(3, b'1', 25, 3, 5, '2025-2026', '4 Arctic', '4 Arctic 3', NULL),
 (0, b'1', 25, 5, 6, '2025-2026', '1 info', '1 Info A', NULL),
 (0, b'1', 25, 5, 7, '2025-2026', '1 info', '1 Info B', NULL),
 (0, b'1', 25, 5, 8, '2025-2026', '2 Info', '2 Info A', NULL),
 (0, b'1', 25, 5, 9, '2025-2026', '3 Info', '3 Info A', NULL),
-(0, b'1', 25, 3, 11, '2025-2026', '4 Arctic', '4 Arctic 2', NULL),
+(2, b'1', 25, 3, 11, '2025-2026', '4 Arctic', '4 Arctic 2', NULL),
 (2, b'1', 25, 2, 12, '2025-2026', '1 info', '1 info 2', 4),
 (2, b'1', 25, 6, 13, '2025-2026', '1 RT', '1 RT 1', 7),
-(0, b'1', 25, 1, 14, '2025-2026', '2 Gestion ', '2 Gestion 1', NULL);
+(0, b'1', 25, 1, 14, '2025-2026', '2 Gestion ', '2 Gestion 1', NULL),
+(0, b'1', 25, 3, 17, '2025-2026', '4 Arctic', '4 Arctic 1', NULL),
+(1, b'1', 25, 4, 19, '2025-2026', '4 Twin', '4 Twin 1', NULL);
 
 -- --------------------------------------------------------
 
@@ -212,24 +214,27 @@ CREATE TABLE `mock_students` (
   `establishment_id` bigint(20) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `grade_id` bigint(20) NOT NULL,
-  `last_name` varchar(255) NOT NULL
+  `last_name` varchar(255) NOT NULL,
+  `level` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `mock_students`
 --
 
-INSERT INTO `mock_students` (`id`, `class_id`, `department_id`, `email`, `establishment_id`, `first_name`, `grade_id`, `last_name`) VALUES
-(1, 12, 2, 'mz@gmail.com', 1, 'mohamed', 4, 'ezzoghlami'),
-(2, 12, 2, 'rb@gmail.com', 1, 'rim', 4, 'belkhiri'),
-(3, 13, 6, 'eqlknd', 3, 'je', 7, 'enqd'),
-(4, 13, 6, 'klneq', 3, 'nef', 7, 'enaq'),
-(5, NULL, 5, ';ne', 3, 'jefnq', 6, ';jnez'),
-(7, 16, 3, 'zoghlamimohamed444@gmail.com', 2, 'Zoghlami', 12, 'Mohamed'),
-(8, NULL, 3, 'fjf,', 2, 'jlzfqs', 12, 'kbejf'),
-(9, NULL, 3, ';,zeqf', 2, 'lzkqrsgd', 12, 'kjgrsvn'),
-(10, NULL, 3, 'lk,ef', 2, 'kz,qesld,', 12, 'lqzedslz'),
-(11, NULL, 3, 'zoghlamimohamed444@gmail.com', 2, 'Zoghlami', 12, 'Mohamed');
+INSERT INTO `mock_students` (`id`, `class_id`, `department_id`, `email`, `establishment_id`, `first_name`, `grade_id`, `last_name`, `level`) VALUES
+(1, 12, 2, 'mz@gmail.com', 1, 'mohamed', 4, 'ezzoghlami', NULL),
+(2, 12, 2, 'rb@gmail.com', 1, 'rim', 4, 'belkhiri', NULL),
+(3, 13, 6, 'eqlknd', 3, 'je', 7, 'enqd', '2 Réseaux et Télécommunications'),
+(4, 13, 6, 'klneq', 3, 'nef', 7, 'enaq', '2 Réseaux et Télécommunications'),
+(5, NULL, 5, ';ne', 3, 'jefnq', 6, ';jnez', '1 Informatique'),
+(8, 5, 3, 'fjf,', 2, 'jlzfqs', 12, 'kbejf', '4 Arctic'),
+(9, 5, 3, ';,zeqf', 2, 'lzkqrsgd', 12, 'kjgrsvn', '4 Arctic'),
+(10, 5, 3, 'lk,ef', 2, 'kz,qesld,', 12, 'lqzedslz', '4 Arctic'),
+(11, 11, 3, 'zoghlamimohamed444@gmail.com', 2, 'Zoghlami', 12, 'Mohamed', '4 Arctic'),
+(12, 11, 3, 'i,aed', 2, 'jjaej', 12, 'la,eq', '4 Arctic'),
+(13, NULL, 1, 'm,ef', 1, ',kaez', 14, 'l,afc', '1 Gestion'),
+(14, 19, 4, 'jnqfn', 2, 'nrfns', 12, 'lnr', '4 Twin');
 
 -- --------------------------------------------------------
 
@@ -559,7 +564,7 @@ ALTER TABLE `academic_calendar_periods`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -589,7 +594,7 @@ ALTER TABLE `establishment_time_slots`
 -- AUTO_INCREMENT for table `mock_students`
 --
 ALTER TABLE `mock_students`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `rooms`

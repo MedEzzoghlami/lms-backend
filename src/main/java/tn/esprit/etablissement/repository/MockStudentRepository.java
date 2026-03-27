@@ -17,4 +17,7 @@ public interface MockStudentRepository
     long countByClassId(Long classId);
     List<MockStudent> findByEstablishmentIdAndGradeIdAndClassIdIsNull(
             Long establishmentId, Long gradeId);
+
+    List<MockStudent> findByEstablishmentIdAndLevelAndClassIdIsNull(
+            Long establishmentId, String level);
 }

@@ -16,6 +16,8 @@ public class MockStudentService {
 
     private final MockStudentRepository repo;
     private final SchoolClassRepository classRepo;
+    private final EstablishmentGradeRepository gradeRepo;
+    private final DepartmentRepository departmentRepo;
 
     public List<MockStudent> getByEstablishment(Long establishmentId) {
         return repo.findByEstablishmentId(establishmentId);
@@ -35,9 +37,18 @@ public class MockStudentService {
     }
 
     public MockStudent save(MockStudent student) {
+        // Auto-build level from grade + department
+        if (student.getGradeId() != null && student.getDepartmentId() != null) {
+            String gradeName = gradeRepo.findById(student.getGradeId())
+                    .map(g -> g.getName()).orElse("");
+            String deptName = departmentRepo.findById(student.getDepartmentId())
+                    .map(d -> d.getName()).orElse("");
+            // Extract grade number — "4ème année" → "4"
+            String gradeNumber = gradeName.replaceAll("[^0-9]", "").trim();
+            student.setLevel(gradeNumber + " " + deptName);
+        }
         return repo.save(student);
     }
-
     public void delete(Long id) {
         repo.deleteById(id);
     }
@@ -151,5 +162,10 @@ public class MockStudentService {
                 .filter(s -> s.getGradeId().equals(gradeId)
                         && s.getClassId() == null)
                 .collect(java.util.stream.Collectors.toList());
+    }
+    public List<MockStudent> getUnassignedByLevel(
+            Long establishmentId, String level) {
+        return repo.findByEstablishmentIdAndLevelAndClassIdIsNull(
+                establishmentId, level);
     }
 }

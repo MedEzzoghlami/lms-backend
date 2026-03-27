@@ -75,4 +75,10 @@ public class MockStudentController {
             @RequestParam Long gradeId) {
         return service.getUnassignedByGrade(establishmentId, gradeId);
     }
+    @GetMapping("/unassigned/by-level")
+    public List<MockStudent> getUnassignedByLevel(
+            @RequestParam Long establishmentId,
+            @RequestParam String level) {
+        return service.getUnassignedByLevel(establishmentId, level);
+    }
 }

@@ -24,6 +24,9 @@ public class MockStudent {
     @Column(name = "establishment_id", nullable = false)
     private Long establishmentId;
 
+    @Column(name = "level")
+    private String level;
+
     @Column(name = "grade_id", nullable = false)
     private Long gradeId;
 
